@@ -91,3 +91,16 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScrollTop = scrollTop;
     });
 });
+// Form validation
+if (contactForm) {
+    const inputs = contactForm.querySelectorAll('input[required]');
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            if (!this.value.trim()) {
+                this.style.borderColor = '#ff6b6b';
+            } else {
+                this.style.borderColor = '#764ba2';
+            }
+        });
+    });
+}
