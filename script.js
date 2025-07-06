@@ -1,106 +1,107 @@
-// script.js
-document.addEventListener('DOMContentLoaded', function() {
-    // Mobile navigation toggle
+// script.js - NEUROSPARKS REDESIGN (Corrected)
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Element Selectors ---
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
-    
-    if (navToggle && navLinks) {
-        navToggle.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-        });
+    const contactForm = document.getElementById('contact-form');
+    const toast = document.getElementById('toast-notification');
+
+    /**
+     * Displays a toast notification message.
+     * This function is defined first to avoid any reference errors.
+     * @param {string} message - The message to display in the toast.
+     */
+    const showToast = (message) => {
+        if (!toast) return;
+
+        toast.textContent = message;
+        toast.classList.add('show');
         
-        // Close mobile menu when clicking on a link
-        const navLinkItems = document.querySelectorAll('.nav-link');
-        navLinkItems.forEach(link => {
-            link.addEventListener('click', function() {
-                navLinks.classList.remove('active');
+        // Hide the toast after 4 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 4000);
+    };
+
+    /**
+     * Handles the mobile navigation menu toggle.
+     * Toggles the active classes and sets overflow on the <html> element
+     * to prevent scrolling when the mobile menu is open.
+     */
+    const handleMobileNav = () => {
+        if (!navToggle || !navLinks) return;
+
+        navToggle.addEventListener('click', () => {
+            const isMenuOpen = navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active', isMenuOpen);
+            // Using documentElement (the <html> tag) is often more reliable for overflow
+            document.documentElement.style.overflow = isMenuOpen ? 'hidden' : '';
+        });
+    };
+    
+    /**
+     * Sets up the Intersection Observer to animate elements on scroll.
+     * Elements with the class 'animate-on-scroll' will fade in and slide up
+     * as they enter the viewport.
+     */
+    const setupScrollAnimations = () => {
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        if (animatedElements.length === 0) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Stop observing the element once it's visible to save resources
+                    observer.unobserve(entry.target);
+                }
             });
+        }, {
+            threshold: 0.1 // Trigger when 10% of the element is visible
         });
-        
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!navToggle.contains(event.target) && !navLinks.contains(event.target)) {
-                navLinks.classList.remove('active');
-            }
+
+        animatedElements.forEach(element => {
+            observer.observe(element);
         });
-    }
-    
-    // Contact form handling
-    const contactForm = document.getElementById('contact');
-    const toast = document.getElementById('toast');
-    
-    if (contactForm && toast) {
-        contactForm.addEventListener('submit', function(event) {
+    };
+
+    /**
+     * Manages the contact form submission.
+     */
+    const handleContactForm = () => {
+        if (!contactForm) return;
+
+        contactForm.addEventListener('submit', (event) => {
             event.preventDefault();
-            
-            // Show success toast
-            showToast('Thanks, we\'ll get back within one working day');
-            
-            // Reset form
+            showToast("Thanks! We'll be in touch soon.");
             contactForm.reset();
-            
-            // In a real implementation, you would submit the form data here
-            // For now, we'll just show the toast message
         });
-    }
-    
-    function showToast(message) {
-        const toast = document.getElementById('toast');
-        if (toast) {
-            toast.textContent = message;
-            toast.classList.add('show');
-            
-            // Hide toast after 3 seconds
-            setTimeout(function() {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-    }
-    
-    // Smooth scrolling for anchor links
-    const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    anchorLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+    };
+
+    /**
+     * Adds a resize listener to the window to prevent navigation bugs.
+     * If the user opens the mobile menu and then resizes the window to a desktop
+     * view, this ensures the menu closes and scrolling is re-enabled.
+     */
+    const handleResize = () => {
+        window.addEventListener('resize', () => {
+            // Check if we've resized to a desktop width
+            if (window.innerWidth > 767) {
+                // If the mobile menu is active, reset it
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    navToggle.classList.remove('active');
+                    document.documentElement.style.overflow = '';
+                }
             }
         });
-    });
-    
-    // Add scroll effect to navbar
-    let lastScrollTop = 0;
-    const navbar = document.querySelector('.navbar');
-    
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > 100) {
-            navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-        } else {
-            navbar.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
-        }
-        
-        lastScrollTop = scrollTop;
-    });
+    };
+
+    // --- Initialize all functionalities ---
+    handleMobileNav();
+    setupScrollAnimations();
+    handleContactForm();
+    handleResize();
 });
-// Form validation
-if (contactForm) {
-    const inputs = contactForm.querySelectorAll('input[required]');
-    inputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            if (!this.value.trim()) {
-                this.style.borderColor = '#ff6b6b';
-            } else {
-                this.style.borderColor = '#764ba2';
-            }
-        });
-    });
-}
