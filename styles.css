@@ -1,4 +1,4 @@
-/* === STYLES.CSS - NEUROSPARKS REDESIGN V2 === */
+/* === STYLES.CSS - NEUROSPARKS REDESIGN V4 === */
 
 /* --- 1. CSS Variables and Base Styles --- */
 :root {
@@ -92,15 +92,25 @@ img {
     text-align: center;
 }
 
-.grid-2, .grid-3 {
+.grid-2 {
     display: grid;
     gap: 2rem;
 }
 
+.services-grid-wrapper {
+    display: grid;
+    gap: 2rem;
+}
+
+
 @media (min-width: 768px) {
     .grid-2 { grid-template-columns: repeat(2, 1fr); }
-    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .services-grid-wrapper { grid-template-columns: repeat(2, 1fr); }
 }
+@media (min-width: 992px) {
+    .services-grid-wrapper { grid-template-columns: repeat(3, 1fr); }
+}
+
 
 .align-items-center {
     align-items: center;
@@ -138,6 +148,7 @@ img {
 
 .nav-links {
     display: none;
+    align-items: center;
     gap: 2.5rem;
 }
 
@@ -147,6 +158,9 @@ img {
     font-weight: 600;
     position: relative;
     transition: color var(--transition-speed);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
 .nav-link:hover {
@@ -156,6 +170,50 @@ img {
 .nav-link.active {
     color: var(--color-primary);
 }
+
+/* Dropdown Menu Styles */
+.nav-item.dropdown {
+    position: relative;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--border-radius);
+    padding: 0.5rem 0;
+    min-width: 280px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    opacity: 0;
+    transition: opacity var(--transition-speed) ease, top var(--transition-speed) ease;
+    z-index: 1100;
+}
+.dropdown-item {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+    white-space: nowrap;
+}
+.dropdown-item:hover {
+    background-color: var(--color-primary);
+    color: var(--color-light);
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    top: 120%;
+}
+.dropdown-arrow {
+    transition: transform var(--transition-speed) ease;
+}
+.dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
 
 .nav-toggle {
     display: flex;
@@ -187,7 +245,6 @@ img {
     transform: translateY(-10.5px) rotate(-45deg);
 }
 
-
 /* --- 4. Section Specific Styles --- */
 
 /* Hero & Page Header */
@@ -216,6 +273,13 @@ img {
     text-align: center;
     background-color: var(--color-bg-secondary);
 }
+.page-header-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    margin-bottom: 2rem;
+    border-radius: var(--border-radius);
+}
 .page-title {
     font-size: 2.5rem;
     font-weight: 700;
@@ -224,18 +288,24 @@ img {
 }
 .page-subtitle {
     font-size: 1.1rem;
-    max-width: 500px;
+    max-width: 700px;
     margin: 0 auto;
     color: var(--color-text-muted);
 }
 
 /* Card Styles */
+.card-link-wrapper {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
 .card {
     background-color: var(--color-bg-secondary);
     border-radius: var(--border-radius);
     padding: 2rem;
     border: 1px solid var(--color-border);
     transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    height: 100%;
 }
 .card:hover {
     transform: translateY(-5px);
@@ -274,29 +344,7 @@ img {
     left: 0;
 }
 
-/* Case Study & Social Proof */
-.case-highlights {
-    background-color: var(--color-bg-secondary);
-}
-.case-card {
-    background-color: var(--color-dark);
-    border: 1px solid var(--color-border);
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    text-align: center;
-}
-.case-card h3 {
-    color: var(--color-primary);
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-}
-.case-card strong {
-    display: block;
-    margin-top: 1.5rem;
-    font-size: 1.1rem;
-    color: var(--color-light);
-}
-
+/* Social Proof */
 .social-proof {
     background-color: var(--color-dark);
 }
@@ -350,19 +398,29 @@ img {
     margin-bottom: 2rem;
 }
 
-/* Contact Form & Terms Page */
-.contact-wrapper { max-width: 600px; margin: 0 auto; }
-.contact-form { background-color: var(--color-bg-secondary); padding: 2.5rem; border-radius: var(--border-radius); border: 1px solid var(--color-border); }
-.form-group { margin-bottom: 1.5rem; }
-.form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; }
-.form-group input, .form-group textarea { width: 100%; padding: 0.8rem 1rem; background-color: var(--color-dark); border: 1px solid var(--color-border); border-radius: var(--border-radius); color: var(--color-light); font-family: inherit; font-size: 1rem; transition: border-color var(--transition-speed); }
-.form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--color-primary); }
-.map-section { padding-bottom: 0; }
-.map-placeholder { background-color: var(--color-bg-secondary); padding: 2rem; border-radius: var(--border-radius); max-width: 600px; margin: 0 auto; }
-.terms-content { max-width: 800px; margin: 0 auto; }
-.terms-content h2 { color: var(--color-primary); margin-top: 2.5rem; margin-bottom: 1rem; }
-.terms-content article:first-child h2 { margin-top: 0; }
-.terms-content p { margin-bottom: 1.5rem; }
+/* Service Page Specific Styles */
+.service-content-layout {
+    display: grid;
+    gap: 3rem;
+}
+@media (min-width: 992px) {
+    .service-content-layout {
+        grid-template-columns: 2fr 1fr;
+    }
+}
+.service-main-content h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+.service-sidebar .card {
+    position: sticky;
+    top: 120px; /* Adjust based on navbar height */
+}
+.service-sidebar .card-title {
+    font-size: 1.4rem;
+}
 
 /* --- 5. Footer --- */
 .footer { padding: 3rem 0; border-top: 1px solid var(--color-border); background-color: var(--color-dark); }
@@ -412,7 +470,8 @@ img {
 @media (max-width: 767px) {
     .nav-links { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--color-dark); flex-direction: column; justify-content: center; align-items: center; gap: 2rem; transform: translateX(100%); transition: transform var(--transition-speed) ease-in-out; }
     .nav-links.active { transform: translateX(0); display: flex; }
-    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .dropdown { display: none; } /* Hide dropdown on mobile nav, handled by script */
+    .grid-2 { grid-template-columns: 1fr; }
     .about-image { grid-row: 1; }
     .footer-container { flex-direction: column; text-align: center; }
     .footer-links { order: 1; }
