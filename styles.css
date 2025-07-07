@@ -1,4 +1,4 @@
-/* === STYLES.CSS - NEUROSPARKS REDESIGN V6 === */
+/* === STYLES.CSS - NEUROSPARKS REDESIGN V7 === */
 
 /* --- 1. CSS Variables and Base Styles --- */
 :root {
@@ -100,22 +100,8 @@ img {
 .page-subtitle { font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: var(--color-text-muted); }
 .card-link-wrapper { text-decoration: none; color: inherit; display: block; }
 
-/* Card Styles with Neon Hover Effect */
-.card {
-    background-color: var(--color-bg-secondary);
-    border-radius: var(--border-radius);
-    padding: 2rem;
-    border: 1px solid var(--color-border);
-    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
-    height: 100%;
-}
-.card:hover {
-    transform: translateY(-8px) scale(1.03);
-    border-color: var(--color-neon-red);
-    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5), 
-                0 0 20px rgba(239, 68, 68, 0.3);
-}
-
+.card { background-color: var(--color-bg-secondary); border-radius: var(--border-radius); padding: 2rem; border: 1px solid var(--color-border); transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease; height: 100%; }
+.card:hover { transform: translateY(-8px) scale(1.03); border-color: var(--color-neon-red); box-shadow: 0 0 8px rgba(239, 68, 68, 0.5), 0 0 20px rgba(239, 68, 68, 0.3); }
 .card-icon { height: 3rem; width: 3rem; margin-bottom: 1.5rem; color: var(--color-primary); }
 .card-icon svg { width: 100%; height: 100%; }
 .card-title { font-size: 1.25rem; font-weight: 600; color: var(--color-light); margin-bottom: 0.5rem; }
@@ -124,12 +110,36 @@ img {
 .proof-number { display: block; font-size: 2.5rem; font-weight: 700; color: var(--color-primary); }
 .proof-label { font-size: 1rem; color: var(--color-text-muted); }
 .about-img-main { border-radius: var(--border-radius); object-fit: cover; height: 100%; width: 100%; }
-.section-title { font-size: 2rem; font-weight: 700; color: var(--color-light); margin-bottom: 1.5rem; }
+.section-title { font-size: 2.5rem; font-weight: 700; color: var(--color-light); margin-bottom: 1.5rem; }
+.section-subtitle { font-size: 1.1rem; max-width: 600px; margin: 0 auto 3rem auto; color: var(--color-text-muted); }
 .cta-banner { padding: var(--section-padding); background-color: var(--color-primary); background-image: linear-gradient(45deg, var(--color-primary), var(--color-primary-hover)); }
 .cta-title { font-size: 2rem; font-weight: 700; color: var(--color-light); margin-bottom: 1rem; }
 .cta-banner p { color: var(--color-light); opacity: 0.9; margin-bottom: 2rem; }
 
-/* --- 5. Contact & Thank You Page Styles --- */
+/* --- 5. Service Page Styles --- */
+.feature-grid { display: grid; gap: 2rem; margin-top: 2rem; }
+@media (min-width: 768px) { .feature-grid { grid-template-columns: repeat(2, 1fr); } }
+.feature-card { background-color: var(--color-dark); padding: 1.5rem; border-radius: var(--border-radius); border: 1px solid var(--color-border); }
+.feature-card h4 { font-size: 1.2rem; color: var(--color-primary); margin-bottom: 0.5rem; }
+
+.comparison-section { background-color: var(--color-bg-secondary); }
+.comparison-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+.comparison-table th, .comparison-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--color-border); }
+.comparison-table th { font-size: 1.2rem; color: var(--color-light); }
+.comparison-table td:first-child { font-weight: 600; }
+.comparison-table .neurosparks-col { color: var(--color-success); }
+.comparison-table .traditional-col { color: var(--color-text-muted); }
+.comparison-table .tick { color: var(--color-success); margin-right: 0.5rem; }
+.comparison-table .cross { color: var(--color-neon-red); margin-right: 0.5rem; }
+
+.process-steps { display: grid; gap: 2rem; margin-top: 2rem; }
+@media (min-width: 768px) { .process-steps { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 992px) { .process-steps { grid-template-columns: repeat(4, 1fr); } }
+.process-step { text-align: center; }
+.process-step-number { font-size: 1.5rem; font-weight: 700; color: var(--color-primary); width: 50px; height: 50px; line-height: 50px; border-radius: 50%; border: 2px solid var(--color-primary); margin: 0 auto 1rem auto; }
+.process-step h4 { font-size: 1.1rem; color: var(--color-light); margin-bottom: 0.5rem; }
+
+/* --- 6. Contact & Thank You Page Styles --- */
 .contact-section { background-color: var(--color-bg-secondary); }
 .contact-grid { display: grid; gap: 3rem; }
 @media(min-width: 992px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
@@ -158,7 +168,7 @@ img {
 .checkmark-check { transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48; stroke: var(--color-success); animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards; }
 @keyframes stroke { 100% { stroke-dashoffset: 0; } }
 
-/* --- 6. Footer --- */
+/* --- 7. Footer --- */
 .footer { padding: 3rem 0; border-top: 1px solid var(--color-border); background-color: var(--color-dark); }
 .footer-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
 .footer-links { display: flex; gap: 1.5rem; order: 2; }
@@ -166,7 +176,7 @@ img {
 .footer-link:hover { color: var(--color-primary); }
 .footer-copyright { color: var(--color-text-muted); font-size: 0.9rem; order: 1; }
 
-/* --- 7. Animations --- */
+/* --- 8. Animations --- */
 .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
 @keyframes fadeIn { to { opacity: 1; } }
 .animate-glow { animation: fadeIn 0.8s ease-out forwards, text-glow 2.5s ease-in-out infinite alternate; opacity: 0; }
@@ -174,7 +184,7 @@ img {
 .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
 .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
 
-/* --- 8. Responsive Design --- */
+/* --- 9. Responsive Design --- */
 @media (max-width: 767px) {
     .nav-links { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--color-dark); flex-direction: column; justify-content: center; align-items: center; gap: 2rem; transform: translateX(100%); transition: transform var(--transition-speed) ease-in-out; }
     .nav-links.active { transform: translateX(0); display: flex; }
@@ -184,6 +194,11 @@ img {
     .footer-container { flex-direction: column; text-align: center; }
     .footer-links { order: 1; }
     .footer-copyright { order: 2; }
+    .comparison-table th, .comparison-table td { display: block; width: 100%; text-align: left !important; }
+    .comparison-table thead { display: none; }
+    .comparison-table td { border-bottom: none; padding: 0.5rem 1rem; }
+    .comparison-table tr { border-bottom: 1px solid var(--color-border); margin-bottom: 1rem; display: block; }
+    .comparison-table td[data-label]::before { content: attr(data-label); display: block; font-weight: bold; color: var(--color-light); margin-bottom: 0.5rem; }
 }
 @media (min-width: 768px) {
     .nav-toggle { display: none; }
