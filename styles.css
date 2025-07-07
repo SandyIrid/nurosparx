@@ -1,10 +1,11 @@
-/* === STYLES.CSS - NEUROSPARKS REDESIGN V5 === */
+/* === STYLES.CSS - NEUROSPARKS REDESIGN V6 === */
 
 /* --- 1. CSS Variables and Base Styles --- */
 :root {
     --color-primary: #3b82f6; /* A vibrant, modern blue */
     --color-primary-hover: #2563eb;
     --color-success: #22c55e; /* Green for success states */
+    --color-neon-red: #ef4444; /* Neon red for hover effect */
     --color-light: #ffffff;
     --color-dark: #111827; /* A deep, charcoal-like navy */
     --color-bg-secondary: #1f2937; /* Slightly lighter for cards/headers */
@@ -98,8 +99,23 @@ img {
 .page-title { font-size: 2.5rem; font-weight: 700; color: var(--color-light); margin-bottom: 1rem; }
 .page-subtitle { font-size: 1.1rem; max-width: 700px; margin: 0 auto; color: var(--color-text-muted); }
 .card-link-wrapper { text-decoration: none; color: inherit; display: block; }
-.card { background-color: var(--color-bg-secondary); border-radius: var(--border-radius); padding: 2rem; border: 1px solid var(--color-border); transition: transform var(--transition-speed), box-shadow var(--transition-speed); height: 100%; }
-.card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+/* Card Styles with Neon Hover Effect */
+.card {
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    border: 1px solid var(--color-border);
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    height: 100%;
+}
+.card:hover {
+    transform: translateY(-8px) scale(1.03);
+    border-color: var(--color-neon-red);
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.5), 
+                0 0 20px rgba(239, 68, 68, 0.3);
+}
+
 .card-icon { height: 3rem; width: 3rem; margin-bottom: 1.5rem; color: var(--color-primary); }
 .card-icon svg { width: 100%; height: 100%; }
 .card-title { font-size: 1.25rem; font-weight: 600; color: var(--color-light); margin-bottom: 0.5rem; }
